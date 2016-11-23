@@ -99,7 +99,7 @@ public class ResultInterpreter {
         // HTTP method and method parameters
         final String description = methodResult.getMethodDoc() == null || StringUtils.isBlank(methodResult.getMethodDoc().commentText()) ?
                 null : methodResult.getMethodDoc().commentText();
-        final ResourceMethod resourceMethod = new ResourceMethod(methodResult.getHttpMethod(), description);
+        final ResourceMethod resourceMethod = new ResourceMethod(classResult.getOriginalClass(), methodResult.getHttpMethod(), description);
         updateMethodParameters(resourceMethod.getMethodParameters(), classResult.getClassFields());
         updateMethodParameters(resourceMethod.getMethodParameters(), methodResult.getMethodParameters());
         stringParameterResolver.replaceParametersTypes(resourceMethod.getMethodParameters());

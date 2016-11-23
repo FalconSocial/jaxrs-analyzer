@@ -17,6 +17,7 @@
 package com.sebastian_daschner.jaxrs_analyzer.backend;
 
 import com.sebastian_daschner.jaxrs_analyzer.backend.asciidoc.AsciiDocBackendBuilder;
+import com.sebastian_daschner.jaxrs_analyzer.backend.csv.CsvBackendBuilder;
 import com.sebastian_daschner.jaxrs_analyzer.backend.plaintext.PlainTextBackendBuilder;
 import com.sebastian_daschner.jaxrs_analyzer.backend.swagger.SwaggerBackendBuilder;
 import com.sebastian_daschner.jaxrs_analyzer.model.rest.Project;
@@ -60,6 +61,13 @@ public interface Backend {
      */
     static AsciiDocBackendBuilder asciiDoc() {
         return new AsciiDocBackendBuilder();
+    }
+
+    /**
+     * Creates a builder for AsciiDoc backend.
+     */
+    static CsvBackendBuilder csv() {
+        return new CsvBackendBuilder();
     }
 
     /**

@@ -162,6 +162,8 @@ public class Main {
                 return BackendType.PLAINTEXT;
             case "asciidoc":
                 return BackendType.ASCIIDOC;
+            case "csv":
+                return BackendType.CSV;
             default:
                 throw new IllegalArgumentException("Unknown backend " + name);
         }
@@ -220,6 +222,8 @@ public class Main {
                 return Backend.plainText().build();
             case ASCIIDOC:
                 return Backend.asciiDoc().build();
+            case CSV:
+                return Backend.csv().build();
             default:
                 // can not happen
                 throw new IllegalArgumentException("Unknown backend type " + backendType);
@@ -264,6 +268,6 @@ public class Main {
     }
 
     private enum BackendType {
-        SWAGGER, PLAINTEXT, ASCIIDOC
+        SWAGGER, PLAINTEXT, ASCIIDOC, CSV
     }
 }

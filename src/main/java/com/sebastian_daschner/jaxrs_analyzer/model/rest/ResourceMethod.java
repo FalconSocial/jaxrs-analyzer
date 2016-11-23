@@ -31,13 +31,19 @@ public class ResourceMethod {
     private final Set<MethodParameter> methodParameters = new HashSet<>();
     private final String description;
 
+    private final String originalClass;
     private final HttpMethod method;
     private TypeIdentifier requestBody;
 
-    public ResourceMethod(final HttpMethod method, final String description) {
+    public ResourceMethod(final String originalClass, final HttpMethod method, final String description) {
+        this.originalClass = originalClass;
         Objects.requireNonNull(method);
         this.method = method;
         this.description = description;
+    }
+
+    public String getOriginalClass() {
+        return originalClass;
     }
 
     public HttpMethod getMethod() {
