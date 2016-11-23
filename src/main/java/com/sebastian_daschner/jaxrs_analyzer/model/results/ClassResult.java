@@ -16,6 +16,7 @@
 
 package com.sebastian_daschner.jaxrs_analyzer.model.results;
 
+import com.sebastian_daschner.jaxrs_analyzer.model.Tech;
 import com.sebastian_daschner.jaxrs_analyzer.model.rest.MethodParameter;
 
 import java.util.Collections;
@@ -29,14 +30,24 @@ import java.util.Set;
  */
 public class ClassResult {
 
+    private Tech tech = Tech.JAXRS;
     private String applicationPath;
     private String resourcePath;
+    private String urlBinding;
     private String originalClass;
     private final Set<MethodParameter> classFields = new HashSet<>();
     private final Set<MethodResult> methods = new HashSet<>();
     private final Set<String> requestMediaTypes = new HashSet<>();
     private final Set<String> responseMediaTypes = new HashSet<>();
     private MethodResult parentSubResourceLocator;
+
+    public Tech getTech() {
+        return tech;
+    }
+
+    public void setTech(Tech tech) {
+        this.tech = tech;
+    }
 
     public String getApplicationPath() {
         return applicationPath;
@@ -52,6 +63,14 @@ public class ClassResult {
 
     public void setResourcePath(final String resourcePath) {
         this.resourcePath = resourcePath;
+    }
+
+    public String getUrlBinding() {
+        return urlBinding;
+    }
+
+    public void setUrlBinding(String urlBinding) {
+        this.urlBinding = urlBinding;
     }
 
     public String getOriginalClass() {

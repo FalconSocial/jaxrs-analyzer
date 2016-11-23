@@ -33,9 +33,9 @@ public class CsvBackend implements Backend {
 
     private void appendHeader() {
         csvAppender.appendField("Project");
+        csvAppender.appendField("Tech");
         csvAppender.appendField("Class");
         csvAppender.appendField("Method");
-        csvAppender.appendField("Base path");
         csvAppender.appendField("Path");
         csvAppender.appendField("Description");
         csvAppender.endLine();
@@ -46,10 +46,10 @@ public class CsvBackend implements Backend {
                 .sorted(comparing(ResourceMethod::getMethod))
                 .forEach(resourceMethod -> {
                     csvAppender.appendField(project.getName());
+                    csvAppender.appendField(resourceMethod.getTech().toString());
                     csvAppender.appendField(resourceMethod.getOriginalClass().replace('/', '.'));
                     csvAppender.appendField(resourceMethod.getMethod().toString());
-                    csvAppender.appendField(project.getResources().getBasePath());
-                    csvAppender.appendField(resource);
+                    csvAppender.appendField(project.getResources().getBasePath() + resource);
                     csvAppender.appendField(resourceMethod.getDescription());
                     csvAppender.endLine();
                 });

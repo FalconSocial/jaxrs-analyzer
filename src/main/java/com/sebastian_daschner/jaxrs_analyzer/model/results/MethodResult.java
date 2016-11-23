@@ -16,6 +16,7 @@
 
 package com.sebastian_daschner.jaxrs_analyzer.model.results;
 
+import com.sebastian_daschner.jaxrs_analyzer.model.Tech;
 import com.sebastian_daschner.jaxrs_analyzer.model.elements.HttpResponse;
 import com.sebastian_daschner.jaxrs_analyzer.model.instructions.Instruction;
 import com.sebastian_daschner.jaxrs_analyzer.model.rest.HttpMethod;

@@ -93,11 +93,10 @@ public class ProjectAnalyzer {
             final Set<ClassResult> classResults = new HashSet<>();
 
             classes.stream().filter(this::isJAXRSRootResource).forEach(c -> jobRegistry.analyzeResourceClass(c, new ClassResult()));
-
+            classes.stream().filter(this::isStripesResource).forEach(c -> jobRegistry.analyzeResourceClass(c, new ClassResult()));
             Pair<String, ClassResult> classResultPair;
             while ((classResultPair = jobRegistry.nextUnhandledClass()) != null) {
                 final ClassResult classResult = classResultPair.getRight();
-
                 classResults.add(classResult);
                 analyzeClass(classResultPair.getLeft(), classResult);
 
@@ -122,6 +121,18 @@ public class ProjectAnalyzer {
             return false;
         }
     }
+
+    private boolean isStripesResource(String className) {
+        try {
+            final Class<?> clazz = urlClassLoader.loadClass(className);
+            return isAnnotationPresent(clazz, "net.sourceforge.stripes.action.UrlBinding");
+        } catch (ClassNotFoundException e) {
+            LogProvider.error("The class " + className + " could not be loaded!");
+            LogProvider.debug(e);
+            return false;
+        }
+    }
+
 
     private void analyzeClass(final String className, ClassResult classResult) {
         try {

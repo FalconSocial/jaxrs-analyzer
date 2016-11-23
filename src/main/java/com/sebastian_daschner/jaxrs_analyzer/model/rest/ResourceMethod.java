@@ -16,6 +16,8 @@
 
 package com.sebastian_daschner.jaxrs_analyzer.model.rest;
 
+import com.sebastian_daschner.jaxrs_analyzer.model.Tech;
+
 import java.util.*;
 
 /**
@@ -31,6 +33,7 @@ public class ResourceMethod {
     private final Set<MethodParameter> methodParameters = new HashSet<>();
     private final String description;
 
+    private Tech tech = Tech.JAXRS;
     private final String originalClass;
     private final HttpMethod method;
     private TypeIdentifier requestBody;
@@ -40,6 +43,14 @@ public class ResourceMethod {
         Objects.requireNonNull(method);
         this.method = method;
         this.description = description;
+    }
+
+    public Tech getTech() {
+        return tech;
+    }
+
+    public void setTech(Tech tech) {
+        this.tech = tech;
     }
 
     public String getOriginalClass() {

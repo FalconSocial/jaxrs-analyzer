@@ -39,6 +39,10 @@ public final class Types {
     public static final String COOKIE_PARAM = "Ljavax/ws/rs/CookieParam;";
     public static final String MATRIX_PARAM = "Ljavax/ws/rs/MatrixParam;";
 
+    public static final String URL_BINDING = "Lnet/sourceforge/stripes/action/UrlBinding;";
+    public static final String HANDLES_EVENT = "Lnet/sourceforge/stripes/action/HandlesEvent;";
+    public static final String DEFAULT_HANDLER = "Lnet/sourceforge/stripes/action/DefaultHandler;";
+
     public static final String PRIMITIVE_VOID = "V";
     public static final String BOOLEAN = "Ljava/lang/Boolean;";
     public static final String PRIMITIVE_BOOLEAN = "Z";

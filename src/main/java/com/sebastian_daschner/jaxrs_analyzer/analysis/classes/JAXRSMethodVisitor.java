@@ -68,6 +68,11 @@ class JAXRSMethodVisitor extends ProjectMethodVisitor {
                 return new ConsumesAnnotationVisitor(methodResult);
             case Types.PRODUCES:
                 return new ProducesAnnotationVisitor(methodResult);
+            case Types.HANDLES_EVENT:
+                return new HandlesEventAnnotationVisitor(methodResult);
+            case Types.DEFAULT_HANDLER:
+                methodResult.setHttpMethod(HttpMethod.GET);
+                methodResult.setPath(methodResult.getParentResource().getUrlBinding());
         }
         return null;
     }

@@ -86,6 +86,9 @@ public class ResultInterpreter {
         final ResourceMethod resourceMethod = interpretResourceMethod(methodResult, classResult);
 
         resources.addMethod(path, resourceMethod);
+        if(StringUtils.isBlank(resources.getBasePath())) {
+            resources.setBasePath("/");
+        }
     }
 
     /**
@@ -100,6 +103,7 @@ public class ResultInterpreter {
         final String description = methodResult.getMethodDoc() == null || StringUtils.isBlank(methodResult.getMethodDoc().commentText()) ?
                 null : methodResult.getMethodDoc().commentText();
         final ResourceMethod resourceMethod = new ResourceMethod(classResult.getOriginalClass(), methodResult.getHttpMethod(), description);
+        resourceMethod.setTech(classResult.getTech());
         updateMethodParameters(resourceMethod.getMethodParameters(), classResult.getClassFields());
         updateMethodParameters(resourceMethod.getMethodParameters(), methodResult.getMethodParameters());
         stringParameterResolver.replaceParametersTypes(resourceMethod.getMethodParameters());

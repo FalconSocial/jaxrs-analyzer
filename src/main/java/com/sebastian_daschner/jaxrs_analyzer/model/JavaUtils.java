@@ -76,6 +76,11 @@ public final class JavaUtils {
         return Stream.of(annotatedElement.getAnnotations()).map(Annotation::annotationType).map(Class::getName).anyMatch(n -> n.equals(annotationClass.getName()));
     }
 
+    public static boolean isAnnotationPresent(final AnnotatedElement annotatedElement, final String annotationClassName) {
+        return Stream.of(annotatedElement.getAnnotations()).map(Annotation::annotationType).map(Class::getName).anyMatch(n -> n.equals(annotationClassName));
+    }
+
+
     /**
      * Determines the type which is most "specific" (i. e. parametrized types are more "specific" than generic types,
      * types which are not {@link Object} are less specific). If no exact statement can be made, the first type is chosen.

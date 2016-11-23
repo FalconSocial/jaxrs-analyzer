@@ -5,6 +5,7 @@ import com.sebastian_daschner.jaxrs_analyzer.analysis.classes.annotation.Applica
 import com.sebastian_daschner.jaxrs_analyzer.analysis.classes.annotation.ConsumesAnnotationVisitor;
 import com.sebastian_daschner.jaxrs_analyzer.analysis.classes.annotation.PathAnnotationVisitor;
 import com.sebastian_daschner.jaxrs_analyzer.analysis.classes.annotation.ProducesAnnotationVisitor;
+import com.sebastian_daschner.jaxrs_analyzer.analysis.classes.annotation.UrlBindingAnnotationVisitor;
 import com.sebastian_daschner.jaxrs_analyzer.model.JavaUtils;
 import com.sebastian_daschner.jaxrs_analyzer.model.Types;
 import com.sebastian_daschner.jaxrs_analyzer.model.results.ClassResult;
@@ -58,6 +59,8 @@ public class JAXRSClassVisitor extends ClassVisitor {
                 return new ConsumesAnnotationVisitor(classResult);
             case Types.PRODUCES:
                 return new ProducesAnnotationVisitor(classResult);
+            case Types.URL_BINDING:
+                return new UrlBindingAnnotationVisitor(classResult);
             default:
                 return null;
         }
@@ -95,7 +98,9 @@ public class JAXRSClassVisitor extends ClassVisitor {
 
     private static boolean hasJAXRSAnnotations(final String className, final String methodName, final String signature) {
         final Method method = JavaUtils.findMethod(className, methodName, signature);
-        return method != null && hasJAXRSAnnotations(method);
+        return method != null && (hasJAXRSAnnotations(method)
+                || isAnnotationPresent(method, "net.sourceforge.stripes.action.HandlesEvent")
+                || isAnnotationPresent(method, "net.sourceforge.stripes.action.DefaultHandler"));
     }
 
     private static Method searchAnnotatedSuperMethod(final String className, final String methodName, final String methodSignature) {
