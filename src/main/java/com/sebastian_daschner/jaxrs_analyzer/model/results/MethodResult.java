@@ -42,6 +42,7 @@ public class MethodResult {
     private final List<Instruction> instructions = new ArrayList<>();
     private String path;
     private String requestBodyType;
+    private String originalMethodName;
     private String originalMethodSignature;
     private HttpMethod httpMethod;
     private ClassResult subResource;
@@ -82,6 +83,14 @@ public class MethodResult {
 
     public void setRequestBodyType(final String requestBodyType) {
         this.requestBodyType = requestBodyType;
+    }
+
+    public String getOriginalMethodName() {
+        return originalMethodName;
+    }
+
+    public void setOriginalMethodName(String originalMethodName) {
+        this.originalMethodName = originalMethodName;
     }
 
     public String getOriginalMethodSignature() {

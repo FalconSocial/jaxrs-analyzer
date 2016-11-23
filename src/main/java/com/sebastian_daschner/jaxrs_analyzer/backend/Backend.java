@@ -16,6 +16,7 @@
 
 package com.sebastian_daschner.jaxrs_analyzer.backend;
 
+import com.sebastian_daschner.jaxrs_analyzer.backend.apib.ApibBackendBuilder;
 import com.sebastian_daschner.jaxrs_analyzer.backend.asciidoc.AsciiDocBackendBuilder;
 import com.sebastian_daschner.jaxrs_analyzer.backend.csv.CsvBackendBuilder;
 import com.sebastian_daschner.jaxrs_analyzer.backend.plaintext.PlainTextBackendBuilder;
@@ -68,6 +69,10 @@ public interface Backend {
      */
     static CsvBackendBuilder csv() {
         return new CsvBackendBuilder();
+    }
+
+    static ApibBackendBuilder apib() {
+        return new ApibBackendBuilder();
     }
 
     /**

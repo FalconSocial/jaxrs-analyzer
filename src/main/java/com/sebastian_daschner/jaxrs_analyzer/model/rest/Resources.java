@@ -16,7 +16,10 @@
 
 package com.sebastian_daschner.jaxrs_analyzer.model.rest;
 
+import com.sebastian_daschner.jaxrs_analyzer.utils.Pair;
+
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Represents a set of resources and their possible methods.
@@ -107,4 +110,7 @@ public class Resources {
                 '}';
     }
 
+    public Stream<Pair<String, ResourceMethod>> stream() {
+        return resources.entrySet().stream().flatMap((e -> e.getValue().stream().map(m -> Pair.of(e.getKey(), m))));
+    }
 }

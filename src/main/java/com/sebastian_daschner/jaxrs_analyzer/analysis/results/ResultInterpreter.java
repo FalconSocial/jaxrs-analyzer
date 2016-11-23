@@ -101,7 +101,7 @@ public class ResultInterpreter {
     private ResourceMethod interpretResourceMethod(final MethodResult methodResult, final ClassResult classResult) {
         // HTTP method and method parameters
         final String description = methodResult.getMethodDoc() == null || StringUtils.isBlank(methodResult.getMethodDoc().commentText()) ?
-                null : methodResult.getMethodDoc().commentText();
+                methodNameToDescription(methodResult.getOriginalMethodName()) : methodResult.getMethodDoc().commentText();
         final ResourceMethod resourceMethod = new ResourceMethod(classResult.getOriginalClass(), methodResult.getHttpMethod(), description);
         resourceMethod.setTech(classResult.getTech());
         updateMethodParameters(resourceMethod.getMethodParameters(), classResult.getClassFields());
@@ -120,6 +120,24 @@ public class ResultInterpreter {
         addMediaTypes(methodResult, classResult, resourceMethod);
 
         return resourceMethod;
+    }
+
+    private String methodNameToDescription(String string) {
+        if(string == null || string.length() == 0) {
+            return "";
+        }
+        StringBuilder buf = new StringBuilder(string.length());
+        buf.append(Character.toUpperCase(string.charAt(0)));
+        for(int i = 1; i < string.length(); i++) {
+            char c = string.charAt(i);
+            if(Character.isUpperCase(c)) {
+                buf.append(" ");
+                buf.append(Character.toLowerCase(c));
+            } else {
+                buf.append(c);
+            }
+        }
+        return buf.toString();
     }
 
     /**

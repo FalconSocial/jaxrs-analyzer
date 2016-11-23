@@ -27,7 +27,7 @@ class JAXRSMethodVisitor extends ProjectMethodVisitor {
     private final BitSet annotatedParameters;
     private final boolean methodAnnotated;
 
-    JAXRSMethodVisitor(final ClassResult classResult, final String className, final String desc, final String signature, final MethodResult methodResult,
+    JAXRSMethodVisitor(final ClassResult classResult, final String className, final String methodName, final String desc, final String signature, final MethodResult methodResult,
                        final boolean methodAnnotated) {
         super(methodResult, className);
         this.methodAnnotated = methodAnnotated;
@@ -37,6 +37,7 @@ class JAXRSMethodVisitor extends ProjectMethodVisitor {
         annotatedParameters = new BitSet(parameterTypes.size());
         methodParameters = new HashMap<>();
 
+        methodResult.setOriginalMethodName(methodName);
         methodResult.setOriginalMethodSignature(methodSignature);
         classResult.add(methodResult);
     }
