@@ -9,7 +9,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -26,8 +28,8 @@ public class JAXRSAnalyzer {
     private final Set<Path> classPaths = new HashSet<>();
     private final String projectName;
     private final String projectVersion;
+    private final Set<Backend> backends;
     private final Path outputLocation;
-    private final Backend backend;
 
     /**
      * Constructs a JAX-RS Analyzer.
@@ -37,17 +39,17 @@ public class JAXRSAnalyzer {
      * @param classPaths         The additional class paths (can either be directories or jar-files)
      * @param projectName        The project name
      * @param projectVersion     The project version
-     * @param backend            The backend to render the output
      * @param outputLocation     The location of the output file (output will be printed to standard out if {@code null})
+     * @param backends            The backends to render the output
      */
     public JAXRSAnalyzer(final Set<Path> projectClassPaths, final Set<Path> projectSourcePaths, final Set<Path> classPaths, final String projectName, final String projectVersion,
-                         final Backend backend, final Path outputLocation) {
+                         final Set<Backend> backends, final Path outputLocation) {
         Objects.requireNonNull(projectClassPaths);
         Objects.requireNonNull(projectSourcePaths);
         Objects.requireNonNull(classPaths);
         Objects.requireNonNull(projectName);
         Objects.requireNonNull(projectVersion);
-        Objects.requireNonNull(backend);
+        Objects.requireNonNull(backends);
 
         if (projectClassPaths.isEmpty())
             throw new IllegalArgumentException("At least one project path is mandatory");
@@ -57,8 +59,8 @@ public class JAXRSAnalyzer {
         this.classPaths.addAll(classPaths);
         this.projectName = projectName;
         this.projectVersion = projectVersion;
-        this.outputLocation = outputLocation;
-        this.backend = backend;
+        this.backends = backends;
+        this.outputLocation = outputLocation == null ? Paths.get("") : outputLocation;
     }
 
     /**
@@ -73,16 +75,20 @@ public class JAXRSAnalyzer {
         }
 
         final Project project = new Project(projectName, projectVersion, resources);
-        final String output = backend.render(project);
-
-        if (outputLocation != null) {
-            outputToFile(output, outputLocation);
-        } else {
-            System.out.println(output);
+        for(Backend backend: backends) {
+            String output = backend.render(project);
+            outputToFile(output, outputLocation.resolve(backend.getOutputFile(project)));
         }
     }
 
     private static void outputToFile(final String output, final Path outputLocation) {
+        try {
+            Files.createDirectories(outputLocation.getParent());
+        } catch (IOException e) {
+            LogProvider.error("Could not create parent directory " + outputLocation.getParent() + ", reason: " + e.getMessage());
+            LogProvider.debug(e);
+            return;
+        }
         try (final Writer writer = new BufferedWriter(new FileWriter(outputLocation.toFile()))) {
             writer.write(output);
             writer.flush();
@@ -91,5 +97,4 @@ public class JAXRSAnalyzer {
             LogProvider.debug(e);
         }
     }
-
 }

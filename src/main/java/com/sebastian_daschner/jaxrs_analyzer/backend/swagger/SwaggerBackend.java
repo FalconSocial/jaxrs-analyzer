@@ -24,6 +24,7 @@ import javax.json.stream.JsonGenerator;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -229,4 +230,8 @@ class SwaggerBackend implements Backend {
         }
     }
 
+    @Override
+    public String getOutputFile(Project project) {
+        return "swagger.json";
+    }
 }

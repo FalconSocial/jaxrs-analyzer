@@ -22,6 +22,7 @@ import com.sebastian_daschner.jaxrs_analyzer.model.Types;
 import com.sebastian_daschner.jaxrs_analyzer.model.rest.*;
 import com.sebastian_daschner.jaxrs_analyzer.utils.StringUtils;
 
+import java.nio.file.Path;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
@@ -186,6 +187,12 @@ class PlainTextBackend implements Backend {
     @Override
     public String getName() {
         return NAME;
+    }
+
+
+    @Override
+    public String getOutputFile(Project project) {
+        return project.getName() + ".txt";
     }
 
 }

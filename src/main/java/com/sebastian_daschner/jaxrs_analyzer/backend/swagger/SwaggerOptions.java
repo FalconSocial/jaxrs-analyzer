@@ -10,10 +10,10 @@ import java.util.Set;
  */
 class SwaggerOptions {
 
-    private static final String DEFAULT_DOMAIN = "example.com";
-    private static final Set<SwaggerScheme> DEFAULT_SCHEMES = EnumSet.of(SwaggerScheme.HTTP);
-    private static final boolean DEFAULT_RENDER_TAGS = false;
-    private static final int DEFAULT_TAGS_PATH_OFFSET = 0;
+    public static final String DEFAULT_DOMAIN = "example.com";
+    public static final Set<SwaggerScheme> DEFAULT_SCHEMES = EnumSet.of(SwaggerScheme.HTTP);
+    public static final boolean DEFAULT_RENDER_TAGS = false;
+    public static final int DEFAULT_TAGS_PATH_OFFSET = 0;
 
     private String domain = DEFAULT_DOMAIN;
     private Set<SwaggerScheme> schemes = DEFAULT_SCHEMES;

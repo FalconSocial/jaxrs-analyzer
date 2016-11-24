@@ -6,6 +6,7 @@ import com.sebastian_daschner.jaxrs_analyzer.model.Types;
 import com.sebastian_daschner.jaxrs_analyzer.model.rest.*;
 import com.sebastian_daschner.jaxrs_analyzer.utils.StringUtils;
 
+import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.Set;
@@ -168,4 +169,8 @@ class AsciiDocBackend implements Backend {
         return NAME;
     }
 
+    @Override
+    public String getOutputFile(Project project) {
+        return project.getName() + ".adoc";
+    }
 }

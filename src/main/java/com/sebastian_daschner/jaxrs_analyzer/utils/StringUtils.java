@@ -16,6 +16,14 @@
 
 package com.sebastian_daschner.jaxrs_analyzer.utils;
 
+import com.sebastian_daschner.jaxrs_analyzer.backend.BackendType;
+import com.sebastian_daschner.jaxrs_analyzer.backend.swagger.SwaggerScheme;
+
+import java.util.EnumSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * Contains utility functions for Strings.
  *
@@ -51,4 +59,18 @@ public final class StringUtils {
         return string.chars().allMatch(Character::isWhitespace);
     }
 
+    public static <E extends Enum<E>> E parseEnum(final Class<E> enumClass, final String value, final String typeName) {
+        try {
+            return Enum.valueOf(enumClass, value.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(typeName + " `" + value + "` not valid. Valid values are: " +
+                    Stream.of(BackendType.values()).map(Enum::name).map(String::toLowerCase).collect(Collectors.joining(", ")));
+        }
+    }
+
+    public static <E extends Enum<E>> EnumSet<E> parseEnumSet(final Class<E> enumClass, final String values, final String typeName) {
+        return Stream.of(values.split(","))
+                .map(value -> parseEnum(enumClass, value, typeName))
+                .collect(() -> EnumSet.noneOf(enumClass), Set::add, Set::addAll);
+    }
 }

@@ -4,6 +4,7 @@ import com.sebastian_daschner.jaxrs_analyzer.backend.Backend;
 import com.sebastian_daschner.jaxrs_analyzer.model.rest.Project;
 import com.sebastian_daschner.jaxrs_analyzer.model.rest.ResourceMethod;
 
+import java.nio.file.Path;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -24,7 +25,6 @@ public class CsvBackend implements Backend {
 
             appendHeader();
             project.getResources().getResources().stream().sorted().forEach(this::appendResource);
-            System.out.println(csvAppender.toString());
             return csvAppender.toString();
         } finally {
             lock.unlock();
@@ -59,4 +59,11 @@ public class CsvBackend implements Backend {
     public String getName() {
         return "csv";
     }
+
+
+    @Override
+    public String getOutputFile(Project project) {
+        return project.getName() + ".csv";
+    }
+
 }

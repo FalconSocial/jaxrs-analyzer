@@ -5,6 +5,7 @@ import com.sebastian_daschner.jaxrs_analyzer.model.rest.Project;
 import com.sebastian_daschner.jaxrs_analyzer.model.rest.ResourceMethod;
 import com.sebastian_daschner.jaxrs_analyzer.utils.Pair;
 
+import java.nio.file.Path;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -31,7 +32,6 @@ public class ApibBackend implements Backend {
                         .thenComparing(p -> p.getLeft())
                         .thenComparing(p -> p.getRight().getMethod()))
                 .forEach(this::appendResource);
-            System.out.println(builder.toString());
             return builder.toString();
         } finally {
             lock.unlock();
@@ -70,5 +70,10 @@ public class ApibBackend implements Backend {
     @Override
     public String getName() {
         return "API Blueprint";
+    }
+
+    @Override
+    public String getOutputFile(Project project) {
+        return project.getName() + ".apib";
     }
 }

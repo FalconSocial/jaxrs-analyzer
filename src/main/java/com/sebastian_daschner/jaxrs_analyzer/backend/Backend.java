@@ -23,6 +23,8 @@ import com.sebastian_daschner.jaxrs_analyzer.backend.plaintext.PlainTextBackendB
 import com.sebastian_daschner.jaxrs_analyzer.backend.swagger.SwaggerBackendBuilder;
 import com.sebastian_daschner.jaxrs_analyzer.model.rest.Project;
 
+import java.nio.file.Path;
+
 /**
  * Renders the analyzed JAX-RS resources into a String representation.
  *
@@ -42,6 +44,8 @@ public interface Backend {
      * Returns a human readable name of the actual backend.
      */
     String getName();
+
+    String getOutputFile(Project project);
 
     /**
      * Creates a builder for Swagger backend.
