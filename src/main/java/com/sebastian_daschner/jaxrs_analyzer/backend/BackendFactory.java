@@ -4,11 +4,9 @@ import com.sebastian_daschner.jaxrs_analyzer.backend.swagger.SwaggerBackendBuild
 import com.sebastian_daschner.jaxrs_analyzer.backend.swagger.SwaggerScheme;
 import com.sebastian_daschner.jaxrs_analyzer.utils.StringUtils;
 
-import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class BackendFactory {
 
@@ -28,6 +26,8 @@ public class BackendFactory {
                 return Backend.csv().build();
             case APIB:
                 return Backend.apib().build();
+            case HTMLTABLE:
+                return Backend.htmltable().build();
             default:
                 // can not happen
                 throw new IllegalArgumentException("Unknown backend type " + backendType);

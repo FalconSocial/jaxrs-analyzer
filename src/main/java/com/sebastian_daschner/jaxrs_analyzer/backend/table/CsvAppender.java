@@ -1,12 +1,17 @@
-package com.sebastian_daschner.jaxrs_analyzer.backend.csv;
+package com.sebastian_daschner.jaxrs_analyzer.backend.table;
 
 import java.util.regex.Pattern;
 
-public class CsvAppender {
+public class CsvAppender implements TableAppender {
 
     private static final Pattern PATTERN_TO_ESCAPE = Pattern.compile("[,\r\n\"]");
     private final StringBuffer buf = new StringBuffer();
     private String delimiter = "";
+
+    @Override
+    public TableAppender beginLine() {
+        return this;
+    }
 
     public CsvAppender appendField(String field) {
         buf.append(delimiter);
@@ -32,6 +37,11 @@ public class CsvAppender {
     public CsvAppender endLine() {
         buf.append("\n");
         delimiter = "";
+        return this;
+    }
+
+    @Override
+    public TableAppender endTable() {
         return this;
     }
 

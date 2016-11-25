@@ -18,12 +18,11 @@ package com.sebastian_daschner.jaxrs_analyzer.backend;
 
 import com.sebastian_daschner.jaxrs_analyzer.backend.apib.ApibBackendBuilder;
 import com.sebastian_daschner.jaxrs_analyzer.backend.asciidoc.AsciiDocBackendBuilder;
-import com.sebastian_daschner.jaxrs_analyzer.backend.csv.CsvBackendBuilder;
+import com.sebastian_daschner.jaxrs_analyzer.backend.table.CsvBackendBuilder;
 import com.sebastian_daschner.jaxrs_analyzer.backend.plaintext.PlainTextBackendBuilder;
 import com.sebastian_daschner.jaxrs_analyzer.backend.swagger.SwaggerBackendBuilder;
+import com.sebastian_daschner.jaxrs_analyzer.backend.table.HtmlTableBackendBuilder;
 import com.sebastian_daschner.jaxrs_analyzer.model.rest.Project;
-
-import java.nio.file.Path;
 
 /**
  * Renders the analyzed JAX-RS resources into a String representation.
@@ -77,6 +76,10 @@ public interface Backend {
 
     static ApibBackendBuilder apib() {
         return new ApibBackendBuilder();
+    }
+
+    static HtmlTableBackendBuilder htmltable() {
+        return new HtmlTableBackendBuilder();
     }
 
     /**
