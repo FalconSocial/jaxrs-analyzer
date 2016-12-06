@@ -62,9 +62,7 @@ public class ApibBackend implements Backend {
         builder.append(" ");
         builder.append(project.getResources().getBasePath() + path);
         builder.append("]\n\n");
-
-        // builder.append("+ Response 200\n\n");
-
+        builder.append("+ Response 200\n\n");
     }
 
     @Override
