@@ -44,7 +44,7 @@
         <dependency>
             <groupId>org.ow2.asm</groupId>
             <artifactId>asm-all</artifactId>
-            <version>5.0.4</version>
+            <version>5.2</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
@@ -87,8 +87,7 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>com.sebastian_daschner.jaxrs_analyzer.Main</mainClass>
                                 </transformer>
                             </transformers>
